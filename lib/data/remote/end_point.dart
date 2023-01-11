@@ -1,5 +1,6 @@
 class EndPoint{
-  static const baseURL = '';
+  static const baseURL = 'https://heartbeat-server.onrender.com';
 
-  static const getUserInfo = '';
+  static const register = '/api/app/register';
+  static const login = '/api/app/login';
 }

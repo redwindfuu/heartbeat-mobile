@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:heart_beat/app_route.dart';
-import 'package:heart_beat/screens/home/home_screen.dart';
 import 'package:heart_beat/screens/splash/splash_screen.dart';
 
 import 'base/styles/app_theme.dart';

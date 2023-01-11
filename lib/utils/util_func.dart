@@ -6,10 +6,17 @@ class UtilFunc{
   static final instance = UtilFunc._();
   UtilFunc._();
 
-  Future overlayFunc({required Future Function() asyncFunction}) async{
-    await Get.showOverlay(
-      loadingWidget: const SpinKitCircle(color: Colors.white, size: 60.0),
-      asyncFunction: () => asyncFunction(), );
+  void showLoading(){
+    Get.dialog(
+      WillPopScope(child: const Center(
+        child: SpinKitCircle(color: Colors.white, size: 60.0),
+      ), onWillPop: () async{
+        return false;
+      }),
+      barrierDismissible: false
+    );
   }
-
+  void hideLoading(){
+    Get.back();
+  }
 }

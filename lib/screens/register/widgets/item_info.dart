@@ -27,6 +27,8 @@ class _ItemInfoState extends State<ItemInfo> {
         Text(widget.label, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
         const SizedBox(height: 16,),
         Wrap(
+          spacing: 16,
+          runSpacing: 16,
           children: widget.listData.map((e) => GestureDetector(
             onTap: (){
               setState(() {

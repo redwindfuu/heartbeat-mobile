@@ -3,6 +3,10 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:heart_beat/app_route.dart';
 
+import '../../data/local/preference/preference_manager.dart';
+import '../../data/local/preference/preference_manager_impl.dart';
+import 'splash_controller.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -12,9 +16,25 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
+  final controller = Get.put(SplashController());
+
+  void initData() async{
+    final String username = await PreferenceManagerImpl.instance.getString(PreferenceManager.username);
+    final String password = await PreferenceManagerImpl.instance.getString(PreferenceManager.password);
+
+    if(username.isNotEmpty && password.isNotEmpty){
+      final res = await controller.login(username, password);
+      if(res != null){
+        Get.offAndToNamed(AppRoute.homeScreen, arguments: res);
+      }
+    }else{
+      Get.offAndToNamed(AppRoute.loginScreen);
+    }
+  }
+
   @override
   void initState() {
-   Future.delayed(const Duration(seconds: 5), () => Get.toNamed(AppRoute.loginScreen));
+    initData();
     super.initState();
   }
 

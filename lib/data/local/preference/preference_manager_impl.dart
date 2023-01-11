@@ -3,6 +3,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 class PreferenceManagerImpl implements PreferenceManager {
+
+  static final instance = PreferenceManagerImpl._();
+
+  PreferenceManagerImpl._();
+
   final _preference = SharedPreferences.getInstance();
 
   @override

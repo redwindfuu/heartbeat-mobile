@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_data_source.dart';
+part of 'data_source.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'user_data_source.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
-class _UserDataSource implements UserDataSource {
-  _UserDataSource(
+class _DataSource implements DataSource {
+  _DataSource(
     this._dio, {
     this.baseUrl,
   });
@@ -19,11 +19,12 @@ class _UserDataSource implements UserDataSource {
   String? baseUrl;
 
   @override
-  Future<ApiResponse<dynamic>> getUserInfo() async {
+  Future<ApiResponse<dynamic>> register(req) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
+    _data.addAll(req);
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ApiResponse<dynamic>>(Options(
       method: 'POST',
@@ -32,7 +33,7 @@ class _UserDataSource implements UserDataSource {
     )
             .compose(
               _dio.options,
-              '',
+              '/api/app/register',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -40,6 +41,33 @@ class _UserDataSource implements UserDataSource {
     final value = ApiResponse<dynamic>.fromJson(
       _result.data!,
       (json) => json as dynamic,
+    );
+    return value;
+  }
+
+  @override
+  Future<ApiResponse<LoginResponse>> login(req) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(req);
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponse<LoginResponse>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/api/app/login',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponse<LoginResponse>.fromJson(
+      _result.data!,
+      (json) => LoginResponse.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }

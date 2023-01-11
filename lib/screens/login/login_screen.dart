@@ -78,10 +78,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     AppButton(
                       onPressed: () async {
                         FocusManager.instance.primaryFocus?.unfocus();
-                        UtilFunc.instance.overlayFunc(
-                            asyncFunction: () => controller.login(
-                                username: usernameController.text,
-                                password: passwordController.text));
+                        UtilFunc.instance.showLoading();
+                        final result = await controller.login(
+                            username: usernameController.text,
+                            password: passwordController.text);
+                        UtilFunc.instance.hideLoading();
+                        if (result) {
+                          Get.offAllNamed(AppRoute.homeScreen,
+                              arguments: controller.loginResponse);
+                        }
                       },
                       text: 'Đăng nhập',
                     ),

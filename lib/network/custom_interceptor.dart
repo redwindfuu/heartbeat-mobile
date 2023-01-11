@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:logger/logger.dart';
 
 class CustomInterceptor extends InterceptorsWrapper{
   @override
@@ -13,6 +14,7 @@ class CustomInterceptor extends InterceptorsWrapper{
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) async{
+    Logger().i(err.message);
     return handler.resolve(
     err.response ?? Response(requestOptions: err.requestOptions));
   }

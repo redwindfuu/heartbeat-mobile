@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:heart_beat/base/styles/app_image.dart';
+import 'package:heart_beat/data/model/login_response.dart';
 
 class HeaderHomePage extends StatefulWidget {
-  const HeaderHomePage({Key? key}) : super(key: key);
+  final LoginResponse user;
+  const HeaderHomePage({Key? key, required this.user}) : super(key: key);
 
   @override
   State<HeaderHomePage> createState() => _HeaderHomePageState();
@@ -14,13 +16,16 @@ class _HeaderHomePageState extends State<HeaderHomePage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Xin chào!', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16),),
-        const SizedBox(height: 8,),
-        Text('Hoàng Anh', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800),),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [const Text('Xin chào, ', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 18),),
+            const SizedBox(width: 8,),
+            Text('${widget.user.name}', style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w800),),],
+        ),
         const SizedBox(height: 16,),
         const Divider(thickness: 4,),
         const SizedBox(height: 16,),
-        Text('Thông tin của bạn', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
+        const Text('Thông tin của bạn', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
         const SizedBox(height: 8,),
         Row(
           children: [

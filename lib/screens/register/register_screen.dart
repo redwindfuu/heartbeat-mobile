@@ -7,6 +7,8 @@ import 'package:heart_beat/screens/register/widgets/item_info.dart';
 import 'package:heart_beat/utils/util_func.dart';
 import 'package:intl/intl.dart';
 
+import '../../base/styles/app_color.dart';
+import '../../base/styles/app_image.dart';
 import '../../base/styles/app_text_style.dart';
 import '../../base/widgets/app_button.dart';
 import '../../base/widgets/custom_text_field.dart';
@@ -43,7 +45,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         resizeToAvoidBottomInset: true,
-        appBar: AppBar(elevation: 1,),
+        appBar: AppBar(
+          elevation: 1,
+        ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: SingleChildScrollView(
@@ -53,18 +57,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               children: [
                 const SizedBox(height: 20),
                 const Text('Đăng ký', style: AppTextStyle.bigTitle),
-                Obx(() {
-                  if (controller.error.isNotEmpty) {
-                    return Padding(
-                      padding: const EdgeInsets.only(top: 16.0),
-                      child: Text(
-                        controller.error.value,
-                        style: const TextStyle(color: Colors.redAccent),
-                      ),
-                    );
-                  }
-                  return const SizedBox.shrink();
-                }),
                 const SizedBox(height: 24),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -114,7 +106,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ).then((value) {
                           if (value != null) {
                             birthdayController.text =
-                                DateFormat('MM/DD/yyyy').format(value);
+                                DateFormat('yyyy/MM/dd').format(value);
                           }
                         });
                       },
@@ -150,16 +142,84 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         valueChanged: (e) {
                           controller.liveArea = e;
                         }),
+                    Obx(() {
+                      if (controller.error.isNotEmpty) {
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 16.0),
+                          child: Text(
+                            controller.error.value,
+                            style: const TextStyle(color: Colors.redAccent),
+                          ),
+                        );
+                      }
+                      return const SizedBox.shrink();
+                    }),
                     const SizedBox(height: 24),
                     AppButton(
                       onPressed: () async {
                         FocusManager.instance.primaryFocus?.unfocus();
-                        UtilFunc.instance.overlayFunc(asyncFunction: () => controller.register(
+                        UtilFunc.instance.showLoading();
+                        final result = await controller.register(
                             name: fullNameController.text,
                             username: usernameController.text,
                             password: passwordNameController.text,
                             confirmPassword: confirmPasswordController.text,
-                            birthday: birthdayController.text));
+                            birthday: birthdayController.text);
+                        UtilFunc.instance.hideLoading();
+                        if (result == true) {
+                          Get.dialog(
+                              WillPopScope(
+                                onWillPop: () async {
+                                  return false;
+                                },
+                                child: Column(
+                                  children: [
+                                    const Spacer(),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 24.0),
+                                      child: Container(
+                                        padding: const EdgeInsets.all(24),
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(24)),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Image.asset(
+                                              AppImage.success,
+                                              height: 150,
+                                              width: 150,
+                                            ),
+                                            const SizedBox(
+                                              height: 8,
+                                            ),
+                                            const Text(
+                                              'Đăng ký thành công',
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  color: AppColor.primaryColor,
+                                                  fontWeight: FontWeight.w500),
+                                            ),
+                                            const SizedBox(
+                                              height: 24,
+                                            ),
+                                            AppButton(
+                                                text: 'OK',
+                                                onPressed: () =>
+                                                    Get.offAllNamed(
+                                                        AppRoute.loginScreen))
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                  ],
+                                ),
+                              ),
+                              barrierDismissible: true);
+                        }
                       },
                       text: 'Đăng ký',
                     ),

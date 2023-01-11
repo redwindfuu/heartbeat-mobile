@@ -18,6 +18,8 @@ class DioClient {
   DioClient._internal() {
     dio = Dio(_option);
     dio.interceptors.add(CustomInterceptor());
-    dio.interceptors.add(PrettyDioLogger());
+    dio.interceptors.add(PrettyDioLogger(
+      requestBody: true,
+    ));
   }
 }
