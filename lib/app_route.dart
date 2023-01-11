@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
+import 'package:heart_beat/screens/home/home_screen.dart';
 import 'package:heart_beat/screens/login/login_screen.dart';
+import 'package:heart_beat/screens/register/register_screen.dart';
 import 'package:heart_beat/screens/splash/splash_screen.dart';
 
 class AppRoute {
@@ -17,6 +19,16 @@ class AppRoute {
     GetPage(
       name: loginScreen,
       page: () => const LoginScreen(),
+    ),
+
+    GetPage(
+      name: registerScreen,
+      page: () => const RegisterScreen(),
+    ),
+
+    GetPage(
+      name: homeScreen,
+      page: () => const HomeScreen(),
     ),
   ];
 }
