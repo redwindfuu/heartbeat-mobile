@@ -3,6 +3,7 @@ import 'package:heart_beat/data/model/login_response.dart';
 
 import '../../network/dio_client.dart';
 import '../model/api_response.dart';
+import '../model/post_heart_beat_response.dart';
 import '../remote/data_source.dart';
 import 'repository.dart';
 
@@ -40,6 +41,16 @@ class RepositoryImpl extends Repository {
   Future<ApiResponse<GetHeartBeatResponse>> getHeartBeat(Map<String, dynamic> req) async {
     try {
       final res = await _dataSource.getHeartBeat(req);
+      return res;
+    } catch (err) {
+      return ApiResponse.fromException(err);
+    }
+  }
+
+  @override
+  Future<ApiResponse<PostHeartBeatResponse>> postHeartBeat(Map<String, dynamic> data) async {
+    try {
+      final res = await _dataSource.postHeartBeat(data);
       return res;
     } catch (err) {
       return ApiResponse.fromException(err);

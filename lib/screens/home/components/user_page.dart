@@ -24,26 +24,28 @@ class _UserPageState extends State<UserPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 2,
+        title: const Text("Thông tin cá nhân"),
+        centerTitle: true,
+      ),
+      body: Container(
         padding: const EdgeInsets.all(16),
         decoration: const BoxDecoration(color: Colors.white),
         child: Column(
           children: [
+            const SizedBox(height: 15),
             Container(
               padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(8)),
+              decoration: BoxDecoration(border: Border.all(color: Colors.grey), borderRadius: BorderRadius.circular(8)),
               child: Column(
                 children: [
                   ItemUserInfo(
                     label: 'Tên',
                     content: widget.user.name ?? '',
                   ),
-                  ItemUserInfo(
-                      label: 'Ngày sinh',
-                      content: formatDateTime(widget.user.birth ?? '')),
+                  ItemUserInfo(label: 'Ngày sinh', content: formatDateTime(widget.user.birth ?? '')),
                   ItemUserInfo(
                     label: 'Giới tính',
                     content: widget.user.gender == true ? 'Name' : 'Nữ',
@@ -83,9 +85,7 @@ class _UserPageState extends State<UserPage> {
               },
               child: Container(
                 padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(8)),
+                decoration: BoxDecoration(border: Border.all(color: Colors.grey), borderRadius: BorderRadius.circular(8)),
                 child: Row(
                   children: const [
                     Icon(

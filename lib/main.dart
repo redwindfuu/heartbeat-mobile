@@ -8,7 +8,7 @@ import 'package:heart_beat/screens/splash/splash_screen.dart';
 import 'base/styles/app_theme.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class ControllerBindings extends Bindings {
@@ -17,8 +17,6 @@ class ControllerBindings extends Bindings {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(

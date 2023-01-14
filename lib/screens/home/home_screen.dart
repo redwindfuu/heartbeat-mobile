@@ -68,6 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
               currentIndex: controller.tabIndex.value,
               onTap: (index) {
                 controller.tabIndex.value = index;
+                controller.getHeartBeat();
               },
             ))),
         body: Column(
@@ -78,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   return HomePage(user: user);
                 }
                 if (controller.tabIndex.value == 1) {
-                  return CountHeartBeatPage(user: user);
+                  return CountHeartBeatPage();
                 }
                 return UserPage(user: user);
               }),

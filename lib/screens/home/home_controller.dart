@@ -21,7 +21,7 @@ class HomeController extends GetxController {
     isLoading = true;
     update();
     final userId = await PreferenceManagerImpl.instance.getString(PreferenceManager.userId);
-    final req = {"userId": "63b1c19735e51b802c674ed0"};
+    final req = {"userId": userId};
     final res = await repo.getHeartBeat(req);
     if (res.status == true && res.data != null) {
       getHeartBeatResponse = res.data;
