@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'app_color.dart';
 
 class AppTheme {
@@ -23,6 +24,11 @@ class AppTheme {
       appBarTheme: AppBarTheme(
         backgroundColor: appBarColor,
         foregroundColor: isDark ? Colors.white : Colors.black,
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.light,
+        ),
       ),
       canvasColor: colorScheme.background,
       scaffoldBackgroundColor: colorScheme.background,
@@ -66,5 +72,4 @@ class AppTheme {
       ),
     );
   }
-
 }

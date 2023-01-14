@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 
 import '../model/api_response.dart';
+import '../model/get_heart_beat_response.dart';
 import '../model/login_response.dart';
 import 'end_point.dart';
 
@@ -16,4 +17,7 @@ abstract class DataSource {
 
   @POST(EndPoint.login)
   Future<ApiResponse<LoginResponse>> login(@Body() Map<String, dynamic> req);
+
+  @GET(EndPoint.getHeartBeat)
+  Future<ApiResponse<GetHeartBeatResponse>> getHeartBeat(@Queries() Map<String, dynamic> req);
 }

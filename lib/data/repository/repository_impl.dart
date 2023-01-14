@@ -1,4 +1,4 @@
-
+import 'package:heart_beat/data/model/get_heart_beat_response.dart';
 import 'package:heart_beat/data/model/login_response.dart';
 
 import '../../network/dio_client.dart';
@@ -10,7 +10,7 @@ class RepositoryImpl extends Repository {
   static final instance = RepositoryImpl._();
   RepositoryImpl._();
 
-  factory RepositoryImpl(){
+  factory RepositoryImpl() {
     return instance;
   }
 
@@ -27,9 +27,19 @@ class RepositoryImpl extends Repository {
   }
 
   @override
-  Future<ApiResponse<LoginResponse>> login(Map<String, dynamic> req) async{
+  Future<ApiResponse<LoginResponse>> login(Map<String, dynamic> req) async {
     try {
       final res = await _dataSource.login(req);
+      return res;
+    } catch (err) {
+      return ApiResponse.fromException(err);
+    }
+  }
+
+  @override
+  Future<ApiResponse<GetHeartBeatResponse>> getHeartBeat(Map<String, dynamic> req) async {
+    try {
+      final res = await _dataSource.getHeartBeat(req);
       return res;
     } catch (err) {
       return ApiResponse.fromException(err);

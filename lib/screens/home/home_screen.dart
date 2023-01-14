@@ -1,6 +1,4 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:heart_beat/base/styles/app_color.dart';
 import 'package:get/get.dart';
 import 'package:heart_beat/screens/home/components/home_page.dart';
 import 'package:heart_beat/screens/home/components/user_page.dart';
@@ -8,6 +6,7 @@ import 'package:heart_beat/screens/home/home_controller.dart';
 
 import '../../base/widgets/text_dialog.dart';
 import '../../data/model/login_response.dart';
+import 'components/count_heart_beat_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -28,43 +27,60 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final controller = Get.find<HomeController>();
     return WillPopScope(
       onWillPop: () async {
-        final result = await Get.dialog<bool>(TextDialog(
+        final result = await Get.dialog<bool>(
+          TextDialog(
             title: 'Thoát ứng dụng',
             content: 'Bạn có chắc muốn thoát ứng dụng?',
             textOkButton: 'Thoát',
             cancelFunc: () => Get.back(result: false),
-            okFunc: () => Get.back(result: true)));
+            okFunc: () => Get.back(result: true),
+          ),
+        );
         return result ?? false;
       },
       child: Scaffold(
-        bottomNavigationBar: CurvedNavigationBar(
-          backgroundColor: AppColor.primaryColor,
-          items: const [
-            Icon(Icons.home, size: 30),
-            Icon(Icons.person, size: 30),
-          ],
-          onTap: (index) {
-            controller.tabIndex.value = index;
-          },
-        ),
+        bottomNavigationBar: Obx((() => BottomNavigationBar(
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home),
+                  label: 'Home',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.bluetooth_audio),
+                  label: 'Đo nhịp tim',
+                  backgroundColor: Colors.red,
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.person),
+                  label: 'Cá nhân',
+                  backgroundColor: Colors.red,
+                ),
+              ],
+              currentIndex: controller.tabIndex.value,
+              onTap: (index) {
+                controller.tabIndex.value = index;
+              },
+            ))),
         body: Column(
           children: [
-            const SizedBox(
-              height: 50,
-            ),
             Expanded(
               child: Obx(() {
                 if (controller.tabIndex.value == 0) {
-                  return HomePage(
-                    user: user,
-                  );
+                  return HomePage(user: user);
                 }
-                return UserPage(
-                  user: user,
-                );
+                if (controller.tabIndex.value == 1) {
+                  return CountHeartBeatPage(user: user);
+                }
+                return UserPage(user: user);
               }),
             ),
           ],

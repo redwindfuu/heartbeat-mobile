@@ -1,6 +1,7 @@
 abstract class PreferenceManager {
   static const username = "username";
   static const password = "password";
+  static const userId = "userId";
   static const name = "name";
 
   Future<String> getString(String key, {String defaultValue = ""});
@@ -19,8 +20,7 @@ abstract class PreferenceManager {
 
   Future<bool> setBool(String key, bool value);
 
-  Future<List<String>> getStringList(String key,
-      {List<String> defaultValue = const []});
+  Future<List<String>> getStringList(String key, {List<String> defaultValue = const []});
 
   Future<bool> setStringList(String key, List<String> value);
 

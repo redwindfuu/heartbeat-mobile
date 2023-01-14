@@ -22,9 +22,7 @@ class ApiResponse<T> {
     this.data,
   });
 
-  factory ApiResponse.fromJson(
-          Map<String, dynamic> json, T Function(Object? json) fromJsonT) =>
-      _$ApiResponseFromJson(json, fromJsonT);
+  factory ApiResponse.fromJson(Map<String, dynamic> json, T Function(Object? json) fromJsonT) => _$ApiResponseFromJson(json, fromJsonT);
 
   factory ApiResponse.fromException(ex) {
     Logger().e(ex);
@@ -33,7 +31,6 @@ class ApiResponse<T> {
     String? mess;
 
     if (ex is DioError) {
-
       Logger().d(ex.response?.data);
 
       String message = "unknown_error";
